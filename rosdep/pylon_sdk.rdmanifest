@@ -22,7 +22,7 @@ install-script: |
     pkgarch="x86"
   fi
 
-  pkg=pylon-${version}-${pkgarch}.tar.gz
+  pkg=pylon-5016388-x86_64tar.gz
   url="https://www.baslerweb.com/media/downloads/software/pylon_software/${pkg}"
 
   wget --no-check-certificate -O $pkg $url
