@@ -2,6 +2,26 @@
 Changelog for package pylon_camera
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.10.8 (2018-01-04)
+-------------------
+* prevent double free
+
+0.10.7 (2017-11-20)
+-------------------
+* Bugfix: lost this because of PylonCameraNode::grabImagesRaw()
+
+0.10.6 (2017-10-13)
+-------------------
+* fix Pylon find script (`#27 <https://github.com/magazino/pylon_camera/issues/27>`_)
+* Contributors: tlindbloom
+
+0.10.5 (2017-09-28)
+-------------------
+* Empty action goal now leads to undefined returned image
+* Updated README
+* Corrected install instructions
+  Basler finally provides a debian package for the pylon-sdk
+
 0.10.4 (2017-09-11)
 -------------------
 * Regeneration of brightness indices after binning change

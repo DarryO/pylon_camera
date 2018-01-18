@@ -465,7 +465,7 @@ void PylonCameraNode::grabImagesRectActionExecuteCB(
     }
     else
     {
-        result = PylonCameraNode::grabImagesRaw(goal, grab_imgs_rect_as_);
+        result = grabImagesRaw(goal, std::ref(grab_imgs_rect_as_));
         if ( !result.success )
         {
             grab_imgs_rect_as_->setSucceeded(result);
@@ -539,17 +539,6 @@ camera_control_msgs::GrabImagesResult PylonCameraNode::grabImagesRaw(
         exposure_auto = goal->exposure_auto;
     }
     // handling of deprecated interface
-
-    // Can only grab images if either exposure times, or brightness or gain
-    // values are provided:
-    if ( !exposure_given && !brightness_given && !goal->gain_given )
-    {
-        ROS_ERROR_STREAM("GrabImagesRaw action server received request but "
-            << "'exposure_given', 'gain_given' and 'brightness_given' are set "
-            << "to false! Not enough information to execute acquisition!");
-        result.success = false;
-        return result;
-    }
 
     if ( exposure_given && exposure_times.empty() )
     {
@@ -1533,10 +1522,16 @@ bool PylonCameraNode::isSleeping()
 
 PylonCameraNode::~PylonCameraNode()
 {
-    delete pylon_camera_;
-    pylon_camera_ = NULL;
-    delete it_;
-    it_ = NULL;
+    if (pylon_camera_)
+    {
+        delete pylon_camera_;
+        pylon_camera_ = nullptr;
+    }
+    if (it_)
+    {
+        delete it_;
+        it_ = nullptr;
+    }
 }
 
 }  // namespace pylon_camera
